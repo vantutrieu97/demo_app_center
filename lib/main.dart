@@ -5,11 +5,6 @@ import 'package:appcenter_analytics/appcenter_analytics.dart';
 import 'package:appcenter_crashes/appcenter_crashes.dart';
 
 void main() {
-  final android = defaultTargetPlatform == TargetPlatform.android;
-
-  var app_secret = android ? "" : "iOSGuid";
-  await AppCenter.start(
-      app_secret, [AppCenterAnalytics.id, AppCenterCrashes.id]);
   runApp(MyApp());
 }
 
@@ -33,7 +28,10 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     print('initState---------->');
-    initAppCenter();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      print('WidgetsBinding.instance.addPostFrameCallback---------->');
+      initAppCenter();
+    });
   }
 
   @override
